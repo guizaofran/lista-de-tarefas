@@ -3,6 +3,7 @@ package com.projeto.lista_tarefas.controllers;
 import com.projeto.lista_tarefas.models.User;
 import com.projeto.lista_tarefas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,28 +16,30 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAll() {
-        return userService.getAll();
+    public ResponseEntity<List<User>> getAll() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
-        return userService.getById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping
-    public User create(@RequestBody User user){
-        return userService.save(user);
+    public ResponseEntity<User> create(@RequestBody User user){
+        return ResponseEntity.ok(userService.createUser(user));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
-        userService.deleteById(id);
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+       userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
-    public void deleteAll(){
-        userService.deleteAll();
+    public ResponseEntity<Void> deleteAll(){
+        userService.deleteAllUsers();
+        return ResponseEntity.noContent().build();
     }
 
 }

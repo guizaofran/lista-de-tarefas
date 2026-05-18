@@ -16,26 +16,26 @@ public class TaskController {
 
     @GetMapping
     public List<Task> getAll() {
-        return taskService.getAll();
+        return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
     public Task getById(@PathVariable Long id) {
-        return taskService.getById(id);
+        return taskService.getTaskById(id);
     }
 
     @PostMapping
     public Task create(@RequestBody Task task){
-        return taskService.save(task);
+        return taskService.createTask(task);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id){
-        taskService.deleteById(id);
+        taskService.deleteTaskById(id);
     }
 
     @DeleteMapping
     public void deleteAll(){
-        taskService.deleteAll();
+        taskService.deleteAllTasks();
     }
 }
