@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,4 +22,7 @@ public class User {
     private Long id;
     private String name;
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<>();
 }

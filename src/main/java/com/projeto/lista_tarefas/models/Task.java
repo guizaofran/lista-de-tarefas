@@ -19,4 +19,8 @@ public class Task {
     private Long id;
     private String name;
     private Boolean completed;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
