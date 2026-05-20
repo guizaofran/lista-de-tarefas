@@ -24,7 +24,12 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Task> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(taskService.getTaskById(id));
+        try{
+            return ResponseEntity.ok(taskService.getTaskById(id));
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
     @PostMapping
@@ -35,7 +40,11 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        taskService.deleteTaskById(id);
-        return ResponseEntity.noContent().build();
+        try{
+            taskService.deleteTaskById(id);
+            return ResponseEntity.noContent().build();
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

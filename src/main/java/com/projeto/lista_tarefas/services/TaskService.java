@@ -19,7 +19,7 @@ public class TaskService {
     }
 
     public Task getTaskById(Long id){
-        return taskRepository.findById(id).orElse(null);
+        return taskRepository.findById(id).orElseThrow(()->new RuntimeException("Tarefa não encontrada"));
     }
 
     public Task createTask(Task task) {
@@ -27,7 +27,11 @@ public class TaskService {
     }
 
     public void deleteTaskById(Long id) {
-        taskRepository.deleteById(id);
+        if(!taskRepository.existsById(id)){
+            throw new RuntimeException("Tarefa não encontrada");
+        }else{
+            taskRepository.deleteById(id);
+        }
     }
 
 
