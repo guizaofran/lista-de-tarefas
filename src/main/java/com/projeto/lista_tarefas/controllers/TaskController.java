@@ -3,6 +3,9 @@ package com.projeto.lista_tarefas.controllers;
 import com.projeto.lista_tarefas.models.Task;
 import com.projeto.lista_tarefas.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +18,24 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public List<Task> getAll() {
-        return taskService.getAllTasks();
+    public ResponseEntity<List<Task>> getAll() {
+        return ResponseEntity.ok(taskService.getAllTasks());
     }
 
     @GetMapping("/{id}")
-    public Task getById(@PathVariable Long id) {
-        return taskService.getTaskById(id);
+    public ResponseEntity<Task> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @PostMapping
-    public Task create(@RequestBody Task task){
-        return taskService.createTask(task);
+    public ResponseEntity<Task> create(@RequestBody Task task) {
+        Task newTask = taskService.createTask(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         taskService.deleteTaskById(id);
-    }
-
-    @DeleteMapping
-    public void deleteAll(){
-        taskService.deleteAllTasks();
+        return ResponseEntity.noContent().build();
     }
 }

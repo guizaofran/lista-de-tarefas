@@ -3,6 +3,8 @@ package com.projeto.lista_tarefas.controllers;
 import com.projeto.lista_tarefas.models.User;
 import com.projeto.lista_tarefas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,9 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user){
-        return ResponseEntity.ok(userService.createUser(user));
+
+        User newUser = userService.createUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
     @DeleteMapping("/{id}")
@@ -36,10 +40,5 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteAll(){
-        userService.deleteAllUsers();
-        return ResponseEntity.noContent().build();
-    }
 
 }

@@ -30,8 +30,5 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public void deleteAllTasks() {
-        taskRepository.deleteAll();
-    }
 
 }

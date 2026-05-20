@@ -25,6 +25,7 @@ public class User {
     private String name;
     private String email;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Task> tasks = new ArrayList<>();
 }

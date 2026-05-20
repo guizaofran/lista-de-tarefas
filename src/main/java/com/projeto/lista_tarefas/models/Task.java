@@ -22,7 +22,7 @@ public class Task {
     private String name;
     private Boolean completed;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
