@@ -1,5 +1,6 @@
 package com.projeto.lista_tarefas.controllers;
 
+import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.User;
 import com.projeto.lista_tarefas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try{
             return ResponseEntity.ok(userService.getUserById(id));
-        }catch(RuntimeException e){
+        }catch(ResourceNotFoundException e){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -43,7 +44,7 @@ public class UserController {
             userService.deleteUserById(id);
             return ResponseEntity.noContent().build();
 
-        }catch (RuntimeException e){
+        }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

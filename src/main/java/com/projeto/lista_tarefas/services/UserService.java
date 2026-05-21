@@ -1,5 +1,6 @@
 package com.projeto.lista_tarefas.services;
 
+import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.User;
 import com.projeto.lista_tarefas.repositorys.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserService {
     }
 
     public User getUserById(Long id){
-        return userRepository.findById(id).orElseThrow(()->new RuntimeException("Usuário não encontrado"));
+        return userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Usuário não encontrado"));
     }
 
     public User createUser(User user) {
@@ -28,7 +29,7 @@ public class UserService {
 
     public void deleteUserById(Long id) {
         if(!userRepository.existsById(id)){
-            throw new RuntimeException("Usuário não encontrado");
+            throw new ResourceNotFoundException("Usuário não encontrado");
         }else{
             userRepository.deleteById(id);
         }

@@ -1,10 +1,10 @@
 package com.projeto.lista_tarefas.controllers;
 
+import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.Task;
 import com.projeto.lista_tarefas.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ public class TaskController {
     public ResponseEntity<Task> getById(@PathVariable Long id) {
         try{
             return ResponseEntity.ok(taskService.getTaskById(id));
-        }catch (RuntimeException e){
+        }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
@@ -43,7 +43,7 @@ public class TaskController {
         try{
             taskService.deleteTaskById(id);
             return ResponseEntity.noContent().build();
-        }catch (RuntimeException e){
+        }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

@@ -1,5 +1,4 @@
 package com.projeto.lista_tarefas.models.modelsDTO;
-import com.projeto.lista_tarefas.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +11,5 @@ public class TaskDTO {
     private String name;
     private Boolean completed;
 
-    private User user;
+    private UserDTO userDTO;
 }
