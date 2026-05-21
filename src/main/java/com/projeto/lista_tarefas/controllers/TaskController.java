@@ -2,6 +2,7 @@ package com.projeto.lista_tarefas.controllers;
 
 import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.Task;
+import com.projeto.lista_tarefas.models.modelsDTO.TaskDTO;
 import com.projeto.lista_tarefas.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,18 +19,17 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAll() {
+    public ResponseEntity<List<TaskDTO>> getAll() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getById(@PathVariable Long id) {
+    public ResponseEntity<TaskDTO> getById(@PathVariable Long id) {
         try{
             return ResponseEntity.ok(taskService.getTaskById(id));
         }catch (ResourceNotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
     }
 
     @PostMapping
