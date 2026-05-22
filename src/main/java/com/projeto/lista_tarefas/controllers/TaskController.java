@@ -2,8 +2,10 @@ package com.projeto.lista_tarefas.controllers;
 
 import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.Task;
+import com.projeto.lista_tarefas.models.modelsDTO.CreateTaskDTO;
 import com.projeto.lista_tarefas.models.modelsDTO.TaskDTO;
 import com.projeto.lista_tarefas.services.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +35,9 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> create(@RequestBody Task task) {
-        Task newTask = taskService.createTask(task);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
+    public ResponseEntity<TaskDTO> create(@RequestBody @Valid CreateTaskDTO dto) {
+        Task newTask = taskService.createTask(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new TaskDTO(newTask));
     }
 
     @DeleteMapping("/{id}")

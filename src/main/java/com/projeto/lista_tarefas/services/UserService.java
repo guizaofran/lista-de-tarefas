@@ -2,8 +2,9 @@ package com.projeto.lista_tarefas.services;
 
 import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.User;
+import com.projeto.lista_tarefas.models.modelsDTO.CreateUserDTO;
 import com.projeto.lista_tarefas.models.modelsDTO.UserDTO;
-import com.projeto.lista_tarefas.repositorys.UserRepository;
+import com.projeto.lista_tarefas.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,11 @@ public class UserService {
         return dto;
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public User createUser(CreateUserDTO dto) {
+        User entity = new User();
+        entity.setName(dto.getName());
+        entity.setEmail(dto.getEmail());
+        return userRepository.save(entity);
     }
 
     public void deleteUserById(Long id) {

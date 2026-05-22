@@ -2,8 +2,10 @@ package com.projeto.lista_tarefas.controllers;
 
 import com.projeto.lista_tarefas.exceptions.ResourceNotFoundException;
 import com.projeto.lista_tarefas.models.User;
+import com.projeto.lista_tarefas.models.modelsDTO.CreateUserDTO;
 import com.projeto.lista_tarefas.models.modelsDTO.UserDTO;
 import com.projeto.lista_tarefas.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -34,9 +36,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user){
-        User newUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    public ResponseEntity<UserDTO> create(@RequestBody @Valid CreateUserDTO dto){
+        User newUser = userService.createUser(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(newUser));
     }
 
     @DeleteMapping("/{id}")

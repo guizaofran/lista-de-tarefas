@@ -1,4 +1,4 @@
-package com.projeto.lista_tarefas.repositorys;
+package com.projeto.lista_tarefas.repositories;
 
 import com.projeto.lista_tarefas.models.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
